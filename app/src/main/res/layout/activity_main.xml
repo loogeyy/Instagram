@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,39 +8,51 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/log_out"
-        tools:layout_editor_absoluteX="292dp"
-        tools:layout_editor_absoluteY="18dp" />
+<!--    <Button-->
+<!--        android:id="@+id/btnLogout"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/log_out"-->
+<!--        tools:layout_editor_absoluteX="292dp"-->
+<!--        tools:layout_editor_absoluteY="18dp" />-->
 
-    <ImageView
-        android:id="@+id/ivImage"
+<!--    <ImageView-->
+<!--        android:id="@+id/ivImage"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:srcCompat="@tools:sample/avatars" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/etDescription"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:hint="@string/description"-->
+<!--        tools:layout_editor_absoluteX="25dp"-->
+<!--        tools:layout_editor_absoluteY="97dp" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btnTakePhoto"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/add_picture" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btnPost"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/post" />-->
+    <FrameLayout
+        android:id="@+id/flContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomMenu"
+        />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/menu_bottom_navigation" />
 
-    <EditText
-        android:id="@+id/etDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/description"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="97dp" />
-
-    <Button
-        android:id="@+id/btnTakePhoto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_picture" />
-
-    <Button
-        android:id="@+id/btnPost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/post" />
-
-</LinearLayout>
+</RelativeLayout>

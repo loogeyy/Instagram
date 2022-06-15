@@ -1,8 +1,6 @@
 package com.example.instagram;
 
 import android.content.Context;
-import android.util.Log;
-import android.view.ContentInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
 
+import java.util.Date;
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
@@ -42,7 +41,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        Log.d("Post Count: ", Integer.toString(posts.size()));
+        //Log.d("Post Count: ", Integer.toString(posts.size()));
         return posts.size();
     }
 
@@ -61,13 +60,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvAuthor;
         private ImageView ivImgPost;
         private TextView tvDescPost;
+        private TextView tvTimestamp;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvAuthor = itemView.findViewById(R.id.tvAuthor);
             ivImgPost = itemView.findViewById(R.id.ivImgPost);
             tvDescPost = itemView.findViewById(R.id.tvDescPost);
+            tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
         }
+
         public void bind(Post post) {
             // Bind the post data to the view elements
             tvDescPost.setText(post.getDescription());
@@ -76,6 +78,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImgPost);
             }
+
+            Date createdAt = post.getCreatedAt();
+            String timeAgo = Post.calculateTimeAgo(createdAt);
+            tvTimestamp.setText(timeAgo);
         }
     }
 

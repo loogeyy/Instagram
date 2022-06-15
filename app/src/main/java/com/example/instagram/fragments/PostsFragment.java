@@ -1,16 +1,22 @@
-package com.example.instagram;
+package com.example.instagram.fragments;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 
+import com.example.instagram.Post;
+import com.example.instagram.PostsAdapter;
+import com.example.instagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -18,24 +24,33 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedActivity extends AppCompatActivity {
+public class PostsFragment extends Fragment {
 
     private RecyclerView rvPosts;
-    private Button btnMakePost;
-    private SwipeRefreshLayout swipeContainer;
-
+    public static final String TAG = "PostsFragment";
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
+    private SwipeRefreshLayout swipeContainer;
 
-    private static final String TAG = "FeedActivity";
+    //do i keep make a post button?
+
+    public PostsFragment() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_posts, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         // swiping refresh
-        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -49,25 +64,12 @@ public class FeedActivity extends AppCompatActivity {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-        rvPosts = findViewById(R.id.rvPosts);
-        btnMakePost = findViewById(R.id.btnMakePost);
-
+        rvPosts = view.findViewById(R.id.rvPosts);
         allPosts = new ArrayList<>();
-        adapter = new PostsAdapter(this, allPosts);
-
+        adapter = new PostsAdapter(getContext(), allPosts);
         rvPosts.setAdapter(adapter);
-        rvPosts.setLayoutManager(new LinearLayoutManager(this));
-
+        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         queryPosts();
-
-        btnMakePost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "onClick sign up button");
-                Intent i = new Intent(FeedActivity.this, MainActivity.class);
-                startActivity(i);
-            }
-        });
     }
 
     private void fetchTimelineAsync(int i) {
@@ -80,7 +82,7 @@ public class FeedActivity extends AppCompatActivity {
         swipeContainer.setRefreshing(false);
     }
 
-    private void queryPosts() {
+    protected void queryPosts() {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
@@ -110,6 +112,5 @@ public class FeedActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }
