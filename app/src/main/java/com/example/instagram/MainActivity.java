@@ -3,6 +3,7 @@ package com.example.instagram;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 //    private Button btnPost;
     private BottomNavigationView bottomMenu;
     final FragmentManager fragmentManager = getSupportFragmentManager();
-
+    private Toolbar toolbar;
     public static final String TAG = "MainActivity";
 
 //    public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottomMenu = findViewById(R.id.bottomMenu);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        btnLogout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -108,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
                         Log.d("Menu", "Profile pressed");
-                        fragment = new ProfileFragment();
+                        fragment = new ProfileFragment(ParseUser.getCurrentUser());
                         break;
                 }
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();

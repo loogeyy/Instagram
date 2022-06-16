@@ -3,14 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/editTextStyle.xml" value="0.1185" />
+        <entry key="app/src/main/res/drawable/edit_text_style.xml" value="0.1085" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.276" />
+        <entry key="app/src/main/res/drawable/rounded_corner.xml" value="0.1185" />
         <entry key="app/src/main/res/layout/activity_feed.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.36405639648437504" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.21442108154296874" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.26954193115234376" />
         <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.2526595744680851" />
+        <entry key="app/src/main/res/layout/fragment_post_details.xml" value="0.29907407407407405" />
         <entry key="app/src/main/res/layout/fragment_posts.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/item_post.xml" value="0.4105455460086946" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.24730224609375" />
+        <entry key="app/src/main/res/layout/item_post.xml" value="0.24702380952380953" />
+        <entry key="app/src/main/res/layout/item_profile.xml" value="0.24298858642578128" />
         <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.33794871794871795" />
         <entry key="app/src/main/res/xml/fileprovider.xml" value="0.1" />
       </map>

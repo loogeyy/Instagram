@@ -62,6 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
         ParseUser user = new ParseUser();
         user.setUsername(username);
         user.setPassword(password);
+        //initialized liked array here
         user.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {
@@ -78,7 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void goNextActivity() {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
         finish(); // user cannot go back to log-in screen
     }

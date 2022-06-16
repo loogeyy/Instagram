@@ -68,6 +68,7 @@ public class FeedActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
     }
 
     private void fetchTimelineAsync(int i) {

@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.instagram"
-        minSdk 32
+        minSdk 30
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -42,5 +42,6 @@ dependencies {
     // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }
