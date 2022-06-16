@@ -1,6 +1,8 @@
 package com.example.instagram;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +17,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.instagram.fragments.PostDetailsFragment;
 import com.example.instagram.fragments.ProfileFragment;
 import com.parse.ParseFile;
-import androidx.fragment.app.FragmentManager;
+
 import java.util.Date;
 import java.util.List;
 
@@ -63,6 +66,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
+
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvAuthor;
@@ -75,14 +80,23 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvAuthor = itemView.findViewById(R.id.tvAuthor);
-            ivImgPost = itemView.findViewById(R.id.ivImgPost);
-            tvDescPost = itemView.findViewById(R.id.tvDescPost);
-            tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
-            ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
-            btnLike = itemView.findViewById(R.id.btnLike);
-            btnComment = itemView.findViewById(R.id.btnComment);
-
+            tvAuthor = itemView.findViewById(R.id.tvAuthorDet);
+            ivImgPost = itemView.findViewById(R.id.ivImgPostDet);
+            tvDescPost = itemView.findViewById(R.id.tvDescPostDet);
+            tvTimestamp = itemView.findViewById(R.id.tvTimestampDet);
+            ivProfileImage = itemView.findViewById(R.id.ivProfileImageDet);
+            btnLike = itemView.findViewById(R.id.btnLikeDet);
+            btnComment = itemView.findViewById(R.id.btnCommentDet);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Fragment fragment = new PostDetailsFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("post", posts.get(getAdapterPosition()));
+                    fragment.setArguments(bundle);
+                    fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                }
+            });
         }
 
         public void bind(Post post) {
