@@ -69,7 +69,6 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 Describe any challenges encountered while building the app.
 - Working with fragments for the first time
 - Interacting with a Like model I added to the database to update likes on a post
-- 
 
 ## License
 
