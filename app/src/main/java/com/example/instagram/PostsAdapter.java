@@ -35,7 +35,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         this.context = context;
         this.posts = posts;
         this.fragmentManager = ((MainActivity) context).getSupportFragmentManager();
-
     }
 
     @NonNull
@@ -78,6 +77,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView ivProfileImage;
         private ImageButton btnLike;
         private ImageButton btnComment;
+        private TextView tvDescUser;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +88,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivProfileImage = itemView.findViewById(R.id.ivChangeProfilePic);
             btnLike = itemView.findViewById(R.id.btnLikeDet);
             btnComment = itemView.findViewById(R.id.btnCommentDet);
+            tvDescUser = itemView.findViewById(R.id.tvDescUser);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -104,6 +106,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             // Bind the post data to the view elements
             tvDescPost.setText(post.getDescription());
             tvAuthor.setText(post.getUser().getUsername());
+            tvDescUser.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImgPost);

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
@@ -8,33 +9,57 @@
     tools:context=".fragments.ComposeFragment">
 
 
-
     <ImageView
         android:id="@+id/ivImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_width="350dp"
+        android:layout_height="350dp"
 
-    <EditText
-        android:id="@+id/etDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/description"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="97dp" />
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTakePhoto"
+        app:srcCompat="@drawable/noimg"
+        tools:srcCompat="@drawable/noimg" />
 
     <Button
         android:id="@+id/btnTakePhoto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_picture" />
+        android:layout_width="150dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rounded_corner"
+        android:text="@string/add_picture"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etDescription"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_style"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="@string/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivImage" />
 
     <Button
         android:id="@+id/btnPost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/post" />
+        android:layout_width="150dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/ig_btn"
+        android:text="@string/post"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etDescription" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

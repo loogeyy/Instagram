@@ -31,6 +31,7 @@ public class PostDetailsFragment extends Fragment {
     private ImageButton btnLikeDet;
     private ImageButton btnCommentDet;
     private Post post;
+    private TextView tvDescUserDet;
 
     public PostDetailsFragment() {
         // Required empty public constructor
@@ -63,7 +64,7 @@ public class PostDetailsFragment extends Fragment {
         ivProfileImageDet = view.findViewById(R.id.ivChangeProfilePic);
         btnLikeDet = view.findViewById(R.id.btnLikeDet);
         btnCommentDet = view.findViewById(R.id.btnCommentDet);
-
+        tvDescUserDet = view.findViewById(R.id.tvDescUserDet);
         tvDescPostDet.setText(post.getDescription());
         tvAuthorDet.setText(post.getUser().getUsername());
         ParseFile image = post.getImage();
@@ -93,6 +94,23 @@ public class PostDetailsFragment extends Fragment {
                     fragment = new DetailsProfileFragment(post.getUser());
                 }
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+            }
+        });
+        tvDescUserDet.setText(post.getUser().getUsername());
+
+        btnLikeDet.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                btnLikeDet.setBackgroundResource(R.drawable.ufi_heart_active);
+//            if (isLiked) {
+//                btnLike.setImageResource(R.drawable.ufi_heart);
+//                //isLiked = false;
+//            } else {
+//                btnLike.setImageResource(R.drawable.ufi_heart_active);
+//                //isLiked = true;
+//            }
+
             }
         });
     }
