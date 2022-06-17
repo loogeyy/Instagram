@@ -53,7 +53,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='./instademo.gif'Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='./instademo.gif' Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [Kap](https://getkap.co/).
 
@@ -67,6 +67,9 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 ## Notes
 
 Describe any challenges encountered while building the app.
+- Working with fragments for the first time
+- Interacting with a Like model I added to the database to update likes on a post
+- 
 
 ## License
 
