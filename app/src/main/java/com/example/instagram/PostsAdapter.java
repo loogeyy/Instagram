@@ -2,6 +2,7 @@ package com.example.instagram;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,12 @@ import com.bumptech.glide.Glide;
 import com.example.instagram.fragments.DetailsProfileFragment;
 import com.example.instagram.fragments.PostDetailsFragment;
 import com.example.instagram.fragments.ProfileFragment;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.Date;
 import java.util.List;
@@ -78,6 +83,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageButton btnLike;
         private ImageButton btnComment;
         private TextView tvDescUser;
+        private TextView tvLikeCount;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +95,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             btnLike = itemView.findViewById(R.id.btnLikeDet);
             btnComment = itemView.findViewById(R.id.btnCommentDet);
             tvDescUser = itemView.findViewById(R.id.tvDescUser);
+            tvLikeCount = itemView.findViewById(R.id.tvLikeCountDet);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -123,7 +130,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             String timeAgo = Post.calculateTimeAgo(createdAt);
             tvTimestamp.setText(timeAgo);
 
-
             tvAuthor.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -138,21 +144,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 }
             });
 
-            //boolean isLiked = false;
+            likeInitialize(post);
 
             btnLike.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
-                    btnLike.setBackgroundResource(R.drawable.ufi_heart_active);
-//            if (isLiked) {
-//                btnLike.setImageResource(R.drawable.ufi_heart);
-//                //isLiked = false;
-//            } else {
-//                btnLike.setImageResource(R.drawable.ufi_heart_active);
-//                //isLiked = true;
-//            }
-
+                    like(post);
                 }
             });
 
@@ -163,8 +160,86 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
                 }
             });
+        }
 
+        private void updateLikeCount(Post post) {
+            ParseQuery<Like> query = ParseQuery.getQuery(Like.class);
+            query.whereEqualTo(Like.KEY_POST, post);
+            query.findInBackground(new FindCallback<Like>() {
+                @Override
+                public void done(List<Like> objects, ParseException e) {
+                    if (e != null) {
+                        Log.e("likes", "Issue with getting likes", e);
+                    }
+                    try {
+                        tvLikeCount.setText(Integer.toString(query.count()) + " likes");
+                    } catch (ParseException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+        }
 
+        private void likeInitialize(Post post) {
+            ParseQuery<Like> query = ParseQuery.getQuery(Like.class);
+            query.whereEqualTo(Like.KEY_USER, ParseUser.getCurrentUser());
+            query.whereEqualTo(Like.KEY_POST, post);
+            query.findInBackground(new FindCallback<Like>() {
+                @Override
+                public void done(List<Like> likes, ParseException e) {
+                    if (e != null) {
+                        Log.e("likes", "Issue with getting likes", e);
+                    }
+                    if (likes.size() == 0) {
+                        btnLike.setBackgroundResource(R.drawable.ufi_heart);
+                    }
+                    else {
+                        btnLike.setBackgroundResource(R.drawable.ufi_heart_active);
+                    }
+                    updateLikeCount(post);
+                }
+            });
+        }
+
+        private void like(Post post) {
+            ParseQuery<Like> query = ParseQuery.getQuery(Like.class);
+            query.whereEqualTo(Like.KEY_USER, ParseUser.getCurrentUser());
+            query.whereEqualTo(Like.KEY_POST, post);
+            query.findInBackground(new FindCallback<Like>() {
+                @Override
+                public void done(List<Like> likes, ParseException e) {
+                    if (e != null) {
+                        Log.e("likes", "Issue with getting likes", e);
+                    }
+                    // liking
+                    if (likes.size() == 0) {
+                        btnLike.setBackgroundResource(R.drawable.ufi_heart_active);
+                        Like like = new Like();
+                        like.setPost(post);
+                        like.setUser(ParseUser.getCurrentUser());
+                        like.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                Log.e("Liking", "Error Liking: ", e);
+                            }
+                        });
+                    }
+                    //unliking
+                    else {
+                        btnLike.setBackgroundResource(R.drawable.ufi_heart);
+                        query.findInBackground(new FindCallback<Like>() {
+                            @Override
+                            public void done(List<Like> like, ParseException e) {
+                                if(!like.isEmpty()){
+                                    like.get(0).deleteInBackground();
+                                }
+                            }
+                        });
+                    }
+                    updateLikeCount(post);
+                }
+            });
+            updateLikeCount(post);
         }
     }
 

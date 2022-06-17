@@ -8,6 +8,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 
 @ParseClassName("Post")
@@ -16,7 +17,6 @@ public class Post extends ParseObject {
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
-    public static final String KEY_LIKED = "likedPosts";
 
 
     public String getDescription() {
@@ -79,12 +79,5 @@ public class Post extends ParseObject {
         return "";
     }
 
-
-
-    public void likePost() {
-        Array liked = (Array) getUser().get("likedPosts");
-        //liked.
-
-    }
 
 }

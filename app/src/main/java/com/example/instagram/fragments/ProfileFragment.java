@@ -53,7 +53,6 @@ public class ProfileFragment extends Fragment {
     private Button btnLogout;
     //private EndlessRecyclerViewScrollListener scrollListener;
 
-    //do i keep make a post button?
 
     public ProfileFragment() {
         // Required empty public constructor

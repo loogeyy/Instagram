@@ -12,17 +12,20 @@
         android:orientation="vertical"
         tools:context=".fragments.PostDetailsFragment">
 
-        <TextView
-            android:id="@+id/tvAuthorDet"
-            android:layout_width="305dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
-            android:clickable="true"
-            android:text="TextView"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintStart_toEndOf="@+id/ivChangeProfilePic"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tvAuthorDet"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:textColor="#3E3E3E"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toEndOf="@+id/ivChangeProfilePic"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Username" />
 
     <ImageView
         android:id="@+id/ivImgPostDet"
@@ -34,51 +37,51 @@
         tools:layout_editor_absoluteX="0dp"
         tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/tvDescPostDet"
-            android:layout_width="wrap_content"
-            android:layout_height="26dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@+id/tvDescUserDet"
-            app:layout_constraintTop_toBottomOf="@+id/btnCommentDet"
+    <TextView
+        android:id="@+id/tvDescPostDet"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toEndOf="@+id/tvDescUserDet"
+        app:layout_constraintTop_toBottomOf="@+id/btnCommentDet"
 
-            tools:text="golden state of mind" />
+        tools:text="golden state of mind" />
 
     <TextView
         android:id="@+id/tvDescUserDet"
         android:layout_width="wrap_content"
         android:layout_height="22dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCommentDet"
         tools:text="username" />
 
-        <TextView
-            android:id="@+id/tvTimestampDet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDescPostDet"
-            tools:text="just now" />
+    <TextView
+        android:id="@+id/tvTimestampDet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="3dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescUserDet"
+        tools:text="just now" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ivChangeProfilePic"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/ivImgPostDet"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/icon" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivChangeProfilePic"
+        android:layout_width="52dp"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/ivImgPostDet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/icon" />
 
         <ImageButton
             android:id="@+id/btnLikeDet"
@@ -103,5 +106,16 @@
             android:clickable="true"
             app:layout_constraintStart_toEndOf="@+id/btnLikeDet"
             app:layout_constraintTop_toBottomOf="@+id/ivImgPostDet" />
+
+    <TextView
+        android:id="@+id/tvLikeCountDet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/_0_likes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLikeDet"
+        tools:text="10 likes" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

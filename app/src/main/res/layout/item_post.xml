@@ -11,7 +11,7 @@
 
     <TextView
         android:id="@+id/tvAuthorDet"
-        android:layout_width="276dp"
+        android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
@@ -35,32 +35,32 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tvDescPostDet"
-        android:layout_width="wrap_content"
-        android:layout_height="26dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/tvDescUser"
-        app:layout_constraintTop_toBottomOf="@+id/btnCommentDet"
-        tools:text="golden state of mind" />
-
-    <TextView
         android:id="@+id/tvDescUser"
         android:layout_width="wrap_content"
         android:layout_height="22dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCommentDet"
         tools:text="username" />
 
     <TextView
+        android:id="@+id/tvDescPostDet"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toEndOf="@+id/tvDescUser"
+        app:layout_constraintTop_toBottomOf="@+id/btnCommentDet"
+        tools:text="golden state of mind" />
+
+    <TextView
         android:id="@+id/tvTimestampDet"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="3dp"
         android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
         android:layout_width="41dp"
         android:layout_height="42dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="9dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars"
@@ -101,5 +101,16 @@
         android:clickable="true"
         app:layout_constraintStart_toEndOf="@+id/btnLikeDet"
         app:layout_constraintTop_toBottomOf="@+id/ivImgPostDet" />
+
+    <TextView
+        android:id="@+id/tvLikeCountDet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/_0_likes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLikeDet"
+        tools:text="10 likes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
