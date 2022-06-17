@@ -8,9 +8,11 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -20,78 +22,112 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.instagram.LoginActivity;
+import com.bumptech.glide.Glide;
 import com.example.instagram.MainActivity;
-import com.example.instagram.Post;
 import com.example.instagram.R;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.io.File;
-import java.util.List;
 
-public class ComposeFragment extends Fragment {
+public class EditProfileFragment extends Fragment {
 
-
-    private ImageView ivImage;
-    private EditText etDescription;
-    private Button btnTakePhoto;
-    private Button btnPost;
-    public static final String TAG = "MainActivity";
-    public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
+    private EditText etChangeName;
+    private ImageView ivChangeProfilePic;
+    private ImageButton btnChangePic;
+    private Button btnUpdateProfile;
+    private EditText etChangeBio;
+    private ParseUser user;
 
     private File photoFile;
     private String photoFileName = "photo.jpg";
+    public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
+    public static final String TAG = "MainActivity";
 
-    public ComposeFragment() {
+    public EditProfileFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_compose, container, false);
+        return inflater.inflate(R.layout.fragment_edit_profile, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        ivImage = view.findViewById(R.id.ivImage);
-        etDescription = view.findViewById(R.id.etDescription);
-        btnTakePhoto = view.findViewById(R.id.btnTakePhoto);
-        btnPost = view.findViewById(R.id.btnPost);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        btnPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String description = etDescription.getText().toString();
-                if (description.isEmpty()) {
-                    Toast.makeText(getContext(), "Description cannot be empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if ((photoFile == null) | (ivImage.getDrawable() == null)) {
-                    Toast.makeText(getContext(), "Must choose image.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        etChangeName = view.findViewById(R.id.etChangeName);
+        ivChangeProfilePic = view.findViewById(R.id.ivChangeProfilePic);
+        btnChangePic = view.findViewById(R.id.btnChangePic);
+        btnUpdateProfile = view.findViewById(R.id.btnUpdateProfile);
+        etChangeBio = view.findViewById(R.id.etChangeBio);
 
-                ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(description, currentUser, photoFile);
-            }
-        });
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            user = bundle.getParcelable("user");
+        }
 
-        btnTakePhoto.setOnClickListener(new View.OnClickListener() {
+        ParseFile profilePic = (ParseFile) user.get("profilePic");
+        //Log.i("pfp", this.user.get("profilePic").toString());
+        if (profilePic != null) {
+            Glide.with(getContext()).load(profilePic.getUrl()).into(ivChangeProfilePic);
+        } else {
+            ivChangeProfilePic.setImageResource(R.drawable.nopfp);
+        }
+
+        btnChangePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchCamera();
             }
         });
+
+        btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nameInput = etChangeName.getText().toString();
+                String bioInput = etChangeBio.getText().toString();
+
+                if (!nameInput.equals("")) {
+                    user.put("name", nameInput);
+                } else {
+                    user.put("name", user.get("name"));
+                }
+                if (!bioInput.equals("")) {
+                    user.put("bio", bioInput);
+                } else {
+                    user.put("bio", user.get("bio"));
+                }
+
+                if (photoFile != null) {
+                    user.put("profilePic", new ParseFile(photoFile));
+                } else {
+                    user.put("profilePic", user.get("profilePic"));
+                }
+
+                user.saveInBackground();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                Fragment fragment = new ProfileFragment(ParseUser.getCurrentUser());
+                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+
+
+
+            }
+        });
+
     }
 
     private void launchCamera() {
@@ -125,7 +161,7 @@ public class ComposeFragment extends Fragment {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 // RESIZE BITMAP, see section below
                 // Load the taken image into a preview
-                ivImage.setImageBitmap(takenImage);
+                ivChangeProfilePic.setImageBitmap(takenImage);
             } else { // Result was a failure
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
@@ -141,50 +177,12 @@ public class ComposeFragment extends Fragment {
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            Log.d(TAG, "failed to create directory");
+            Log.d("getPhotoUri", "failed to create directory");
         }
 
         // Return the file target for the photo based on filename
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
 
-    }
-
-    private void savePost(String description, ParseUser currentUser, File photoFile) {
-        Post post = new Post();
-        post.setDescription(description);
-        post.setImage(new ParseFile(photoFile));
-        post.setUser(currentUser);
-        post.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Error while saving", e);
-                    Toast.makeText(getContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
-                                    }
-                Log.i(TAG, "Post save was successful!");
-                // reset screen
-                etDescription.setText("");
-                ivImage.setImageResource(0);
-            }
-        });
-    }
-
-    // retrieves posts from backend
-    private void queryPosts() {
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue with retrieving posts", e);
-                    return;
-                }
-                for (Post post : posts) {
-                    Log.i(TAG, "Post:" + post.getDescription() + ", username: " + post.getUser().getUsername());
-                }
-            }
-        });
     }
 
 }

@@ -1,7 +1,6 @@
 package com.example.instagram;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +16,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.instagram.fragments.DetailsProfileFragment;
 import com.example.instagram.fragments.PostDetailsFragment;
 import com.example.instagram.fragments.ProfileFragment;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import java.util.Date;
 import java.util.List;
@@ -84,7 +85,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivImgPost = itemView.findViewById(R.id.ivImgPostDet);
             tvDescPost = itemView.findViewById(R.id.tvDescPostDet);
             tvTimestamp = itemView.findViewById(R.id.tvTimestampDet);
-            ivProfileImage = itemView.findViewById(R.id.ivProfileImageDet);
+            ivProfileImage = itemView.findViewById(R.id.ivChangeProfilePic);
             btnLike = itemView.findViewById(R.id.btnLikeDet);
             btnComment = itemView.findViewById(R.id.btnCommentDet);
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +125,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context, "Clicked profile!", Toast.LENGTH_SHORT).show();
-                    Fragment fragment = new ProfileFragment(post.getUser());
+                    Fragment fragment;
+                    if (post.getUser().getUsername().equals(ParseUser.getCurrentUser().getUsername())) {
+                        fragment = new ProfileFragment(post.getUser());
+                    } else {
+                        fragment = new DetailsProfileFragment(post.getUser());
+                    }
                     fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
                 }
             });
@@ -135,7 +141,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
                 @Override
                 public void onClick(View v) {
-                    btnLike.setImageResource(R.drawable.ufi_heart_active);
+                    btnLike.setBackgroundResource(R.drawable.ufi_heart_active);
 //            if (isLiked) {
 //                btnLike.setImageResource(R.drawable.ufi_heart);
 //                //isLiked = false;

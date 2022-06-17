@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/nav_logo_whiteout" />
 
     <EditText
-        android:id="@+id/etUsername"
+        android:id="@+id/etChangeName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/etPassword"
+        android:id="@+id/etChangeBio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -47,10 +47,10 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/etChangeName" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnUpdateProfile"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:layout_marginStart="8dp"
@@ -61,7 +61,7 @@
         app:backgroundTint="@color/ig_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/etChangeBio" />
 
     <Button
         android:id="@+id/btnSignUp"
@@ -74,6 +74,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        app:layout_constraintTop_toBottomOf="@+id/btnUpdateProfile"
         app:layout_constraintVertical_bias="0.444" />
 </androidx.constraintlayout.widget.ConstraintLayout>

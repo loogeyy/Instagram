@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.instagram.Post;
 import com.example.instagram.R;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import java.util.Date;
 
@@ -58,7 +60,7 @@ public class PostDetailsFragment extends Fragment {
         ivImgPostDet = view.findViewById(R.id.ivImgPostDet);
         tvDescPostDet = view.findViewById(R.id.tvDescPostDet);
         tvTimestampDet = view.findViewById(R.id.tvTimestampDet);
-        ivProfileImageDet = view.findViewById(R.id.ivProfileImageDet);
+        ivProfileImageDet = view.findViewById(R.id.ivChangeProfilePic);
         btnLikeDet = view.findViewById(R.id.btnLikeDet);
         btnCommentDet = view.findViewById(R.id.btnCommentDet);
 
@@ -68,8 +70,8 @@ public class PostDetailsFragment extends Fragment {
         if (image != null) {
             Glide.with(getContext()).load(image.getUrl()).into(ivImgPostDet);
         }
-        ParseFile profilePic = (ParseFile) post.getUser().get("profilePic");
 
+        ParseFile profilePic = (ParseFile) post.getUser().get("profilePic");
         if (profilePic != null) {
             Glide.with(getContext()).load(profilePic.getUrl()).into(ivProfileImageDet);
         } else {
@@ -79,6 +81,20 @@ public class PostDetailsFragment extends Fragment {
         Date createdAt = post.getCreatedAt();
         String timeAgo = Post.calculateTimeAgo(createdAt);
         tvTimestampDet.setText(timeAgo);
+
+        tvAuthorDet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                Fragment fragment;
+                if (post.getUser().getUsername().equals(ParseUser.getCurrentUser().getUsername())) {
+                    fragment = new ProfileFragment(post.getUser());
+                } else {
+                    fragment = new DetailsProfileFragment(post.getUser());
+                }
+                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+            }
+        });
     }
 
 }

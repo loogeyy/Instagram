@@ -12,14 +12,15 @@
 
     <TextView
         android:id="@+id/tvAuthorDet"
-        android:layout_width="305dp"
-        android:layout_height="35dp"
+        android:layout_width="276dp"
+        android:layout_height="25dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:clickable="true"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintStart_toEndOf="@+id/ivProfileImageDet"
+        android:textColor="#3E3E3E"
+        app:layout_constraintStart_toEndOf="@+id/ivChangeProfilePic"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -54,11 +55,10 @@
         tools:text="just now" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivProfileImageDet"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/ivChangeProfilePic"
+        android:layout_width="41dp"
+        android:layout_height="42dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="1dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/ivImgPostDet"
