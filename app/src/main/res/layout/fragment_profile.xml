@@ -112,7 +112,7 @@
         android:background="@drawable/ic_logout"
         app:layout_constraintBottom_toTopOf="@+id/ivChangeProfilePic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintHorizontal_bias="0.969"
         app:layout_constraintStart_toEndOf="@+id/tvProfileUser" />
 
     <TextView
